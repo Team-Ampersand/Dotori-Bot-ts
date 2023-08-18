@@ -2,8 +2,8 @@
   "compilerOptions": {
       "target": "ESNext",
       "module": "commonjs",
-      "rootDir": "./src/",
-      "outDir": "./dist/",
+      "rootDir": "src",
+      "outDir": "dist",
       "strict": true,
       "moduleResolution": "node",
       "importHelpers": true,
@@ -18,13 +18,13 @@
           "node_modules/@types"
       ],
       "sourceMap": false,
-      "baseUrl": "./"
+      "baseUrl": ""
   },
   "files": [
       "src/index.ts"
   ],
   "include": [
-      "./**/*.ts"
+      "**/*.ts"
   ],
   "exclude": [
       "node_modules",
