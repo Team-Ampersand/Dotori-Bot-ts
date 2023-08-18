@@ -1,14 +1,15 @@
 import { Client } from "discord.js";
-import ready from "./listeners/ready";
 
-const token = "";
+export class Bot {
+  public constructor(public readonly client: Client) {
+    // this.client.login(config.discordToken);
 
-console.log("Bot is starting...");
+    this.client.on("ready", () => {
+      console.log(`${this.client.user!.username} ready!`);
 
-const client = new Client({
-    intents: []
-});
+    });
 
-ready(client);
-
-client.login(token);
+    this.client.on("warn", (info) => console.log(info));
+    this.client.on("error", console.error);
+  }
+}
