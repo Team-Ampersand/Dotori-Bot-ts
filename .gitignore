@@ -1,0 +1,9 @@
+node_modules
+.next
+.DS_Store
+.env
+.eslintcache
+build
+yarn.lock
+package-lock.json
+.vscode
