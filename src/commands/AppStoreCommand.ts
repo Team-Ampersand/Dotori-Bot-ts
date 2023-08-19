@@ -65,7 +65,7 @@ export default {
 - Version: ${inputVersion}
 - 변경사항: ${inputChanged}
 
-🚀 앱스토어에 도토리 앱 심사 제출을 완료했습니다!
+🚀 앱스토어에 앱 제출을 시작합니다.. 30분만 기다려주세요..!
         `
       })
     } else {
