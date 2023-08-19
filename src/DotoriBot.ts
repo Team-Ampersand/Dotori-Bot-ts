@@ -1,4 +1,4 @@
-import { Client, Events, Interaction, REST, Routes, version } from "discord.js";
+import { Client, Events, Interaction, REST, Routes } from "discord.js";
 import { config } from "./utils/config";
 import PingCommand from "./commands/PingCommand";
 import AppStoreCommand from "./commands/AppStoreCommand";
