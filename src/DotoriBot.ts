@@ -57,7 +57,7 @@ export class DotoriBot {
 
         await interaction.reply({
           content: error.toString()
-        })
+        });
       }
     });
   }
