@@ -1,4 +1,4 @@
-import { Client, Events, Interaction, REST, Routes, SlashCommandBuilder, version } from "discord.js";
+import { Client, Events, Interaction, REST, Routes, version } from "discord.js";
 import { config } from "./utils/config";
 import PingCommand from "./commands/PingCommand";
 import { Command } from "./interfaces/Command";
@@ -24,7 +24,7 @@ export class DotoriBot {
   }
 
   private async registerSlashCommands() {
-    const discordREST = new REST({ version: version }).setToken(config.discordToken);
+    const discordREST = new REST({ version: "10" }).setToken(config.discordToken);
     const slashCommands = [
       PingCommand
     ];
@@ -37,7 +37,7 @@ export class DotoriBot {
     await discordREST.put(
       Routes.applicationCommands(this.client.user?.id ?? ""),
       {
-         body: slashCommands.map(command => command.data) 
+         body: slashCommands.map(command => command.data.toJSON())
       }
     );
   }
@@ -51,7 +51,7 @@ export class DotoriBot {
       if (!command) return;
 
       try {
-        command.execute(interaction);
+        await command.execute(interaction);
       } catch (error: any) {
         console.error(error);
 
