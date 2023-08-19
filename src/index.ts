@@ -1,5 +1,6 @@
 import { Client, GatewayIntentBits } from "discord.js";
 import { DotoriBot } from "./DotoriBot";
+import express, { Express } from "express";
 
 export const bot = new DotoriBot(
     new Client({
@@ -11,3 +12,10 @@ export const bot = new DotoriBot(
         ]
     })
 );
+
+const app: Express = express();
+const port = 3000;
+
+app.listen(port, () => {
+    console.log(`Listening at ${port}`);
+});
