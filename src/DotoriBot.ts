@@ -1,9 +1,10 @@
-import { Client, REST, Routes, SlashCommandBuilder, version } from "discord.js";
+import { Client, Events, Interaction, REST, Routes, SlashCommandBuilder, version } from "discord.js";
 import { config } from "./utils/config";
 import PingCommand from "./commands/PingCommand";
+import { Command } from "./interfaces/Command";
 
 export class DotoriBot {
-  private slashCommandMap = new Map<string, SlashCommandBuilder>();
+  private slashCommandMap = new Map<string, Command>();
 
   public constructor(
     private readonly client: Client
@@ -18,6 +19,8 @@ export class DotoriBot {
 
     this.client.on("warn", (info) => console.log(info));
     this.client.on("error", console.error);
+
+    this.onInteractionReceived();
   }
 
   private async registerSlashCommands() {
@@ -27,9 +30,9 @@ export class DotoriBot {
     ];
 
     this.slashCommandMap = slashCommands.reduce((map, command) => {
-      map.set(command.data.name, command.data);
+      map.set(command.data.name, command);
       return map;
-    }, new Map<string, SlashCommandBuilder>);
+    }, new Map<string, Command>);
 
     await discordREST.put(
       Routes.applicationCommands(this.client.user?.id ?? ""),
@@ -37,5 +40,25 @@ export class DotoriBot {
          body: slashCommands.map(command => command.data) 
       }
     );
+  }
+
+  private async onInteractionReceived() {
+    this.client.on(Events.InteractionCreate, async (interaction: Interaction) => {
+      if (!interaction.isChatInputCommand()) return;
+
+      const command = this.slashCommandMap.get(interaction.commandName);
+
+      if (!command) return;
+
+      try {
+        command.execute(interaction);
+      } catch (error: any) {
+        console.error(error);
+
+        await interaction.reply({
+          content: error.toString()
+        })
+      }
+    });
   }
 }
