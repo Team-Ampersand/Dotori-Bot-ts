@@ -29,8 +29,9 @@ export default {
     const inputVersion = interaction.options.getString("버전")
     const inputChangedFile = interaction.options.getAttachment("변경사항파일")
 
+    
     const inputChanged: string = (inputChangedFile)
-    ? await (await fetch(inputChangedFile.url)).text()
+    ? (await axios.get(inputChangedFile.url)).data
     : interaction.options.getString("변경사항")?.replaceAll("\\n", "\n") ?? ""
 
     if (!inputChanged) {
