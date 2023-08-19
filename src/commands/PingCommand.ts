@@ -1,7 +1,9 @@
 import { ChatInputCommandInteraction, SlashCommandBuilder } from "discord.js";
 
 export default {
-  data: new SlashCommandBuilder(),
+  data: new SlashCommandBuilder()
+    .setName("ping")
+    .setDescription("생존 신고용입니다"),
   execute(interaction: ChatInputCommandInteraction) {
     interaction
       .reply({
