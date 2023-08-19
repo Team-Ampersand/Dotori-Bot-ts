@@ -1,6 +1,7 @@
 import { Client, Events, Interaction, REST, Routes, version } from "discord.js";
 import { config } from "./utils/config";
 import PingCommand from "./commands/PingCommand";
+import AppStoreCommand from "./commands/AppStoreCommand";
 import { Command } from "./interfaces/Command";
 
 export class DotoriBot {
@@ -25,8 +26,9 @@ export class DotoriBot {
 
   private async registerSlashCommands() {
     const discordREST = new REST({ version: "10" }).setToken(config.discordToken);
-    const slashCommands = [
-      PingCommand
+    const slashCommands: Array<Command> = [
+      PingCommand,
+      AppStoreCommand
     ];
 
     this.slashCommandMap = slashCommands.reduce((map, command) => {
